@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const mainModel = require("../Controllers/itemController");
+const mainControllers = require("../Controllers/itemController");
 
 // get all items 
 router.get("/", async (req, res, next) => {
@@ -11,7 +11,7 @@ router.get("/", async (req, res, next) => {
     params.sortType = req.query.orderDir;
     params.keyword = req.query.keyword;
 
-    const data = await mainModel.listItems(params, { task: "all" });
+    const data = await mainControllers.listItems(params, { task: "all" });
     res.status(200).json({
       success: true,
       data,
@@ -24,7 +24,7 @@ router.get("/", async (req, res, next) => {
 // get one item from id
 router.get("/:id", async (req, res, next) => {
   try {
-    const data = await mainModel.listItems(
+    const data = await mainControllers.listItems(
       { id: req.params.id },
       { task: "one" }
     );
@@ -45,7 +45,7 @@ router.post("/add", async (req, res, next) => {
     params.name = req.body.name;
     params.status = req.body.status;
 
-    const data = await mainModel.create(params);
+    const data = await mainControllers.create(params);
 
     res.status(200).json({
       success: true,
@@ -59,7 +59,7 @@ router.post("/add", async (req, res, next) => {
 // edit
 router.put("/:id/edit", async (req, res, next) => {
     try {
-        const data = await mainModel.editItem(
+        const data = await mainControllers.editItem(
           { id: req.params.id , body: req.body},
           { task: "edit" }
         );
@@ -76,7 +76,7 @@ router.put("/:id/edit", async (req, res, next) => {
 // delete
 router.delete("/:id/delete",async (req, res, next) => {
     try {
-        const data = await mainModel.deleteItem(
+        const data = await mainControllers.deleteItem(
           { id: req.params.id },
           { task: "one" }
         );

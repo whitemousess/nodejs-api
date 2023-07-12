@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    id: String,
-    name: String,
-    status: String
+    name: { type: String },
+    status: { type: String }
 },{
     timestamps: true
 })
